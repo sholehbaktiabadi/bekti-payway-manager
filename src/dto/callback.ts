@@ -15,7 +15,7 @@ export class MetaDataCallback {
   transaction_fee_policy: string;
 }
 
-export class CreditInCallback {
+export class IncomingCreditCallback {
   @IsOptional()
   @IsString()
   version: string;

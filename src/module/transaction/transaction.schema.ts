@@ -1,7 +1,7 @@
 import { targetConstructorToSchema } from "class-validator-jsonschema";
-import { CreditInCallback } from "../../dto/callback";
+import { IncomingCreditCallback } from "../../dto/callback";
 
 const tags = ["Transactions"];
-export const creditInSchema = {
-  creditIn: { tags, body: targetConstructorToSchema(CreditInCallback) },
+export const incomingCreditSchema = {
+  creditIn: { tags, body: targetConstructorToSchema(IncomingCreditCallback) },
 };

@@ -1,4 +1,4 @@
-import { CreditInCallback } from "../../dto/callback";
+import { IncomingCreditCallback } from "../../dto/callback";
 import { BullQueueTransactionPayload } from "../../dto/bull";
 import { BullQueue } from "../bull/bull.queue";
 
@@ -7,8 +7,7 @@ export class CallbackService {
     constructor(bullQueue: BullQueue){
         this.bullQueue = bullQueue
     }
-    async CreditIn(p: CreditInCallback){
-        console.log(p.message)
+    async IncomingCredit(p: IncomingCreditCallback){
         const queuePayload = new BullQueueTransactionPayload()
         queuePayload.orderID = p.message
         this.bullQueue.AddTransactionJob(queuePayload)

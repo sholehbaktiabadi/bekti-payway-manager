@@ -8,7 +8,7 @@ export class BullQueue {
     async AddTransactionJob(payload: BullQueueTransactionPayload) {
         const queueTransactionName = QueueNameTransaction
         const myQueue = new Queue(queueTransactionName, { connection: MQRedis });
-        const job = await myQueue.add(payload.orderID, payload);
-        console.log("Job added:", job.id, payload.orderID );
+        await myQueue.add(payload.orderID, payload);
+        console.log("REGISTER:QUEUE transactionID:", payload.orderID );
     }
 }
