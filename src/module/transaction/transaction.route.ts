@@ -2,16 +2,14 @@ import { FastifyInstance } from "fastify";
 import { CreditInCallback } from "../../dto/callback";
 import { response } from "../../helper/response";
 import { validation } from "../../helper/validation";
-import { Req, Res } from "../types/fastify";
+import { Req, Res } from "../../types/fastify";
 import { CallbackService } from "./transaction.service";
 import { creditInSchema } from "./transaction.schema";
-import { CacheService } from "../cache/cache.service";
-import { initRedis } from "../../config/redis";
-import { RedisClientType } from "redis";
+import { BullQueue } from "../bull/bull.queue";
 
 class Controller {
     private static callbackService = new CallbackService(
-        new CacheService(initRedis as RedisClientType)
+        new BullQueue()
     )
 
     static async CreditIn(req: Req, res: Res) {

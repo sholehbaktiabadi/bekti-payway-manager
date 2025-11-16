@@ -1,4 +1,4 @@
-import { Res } from "../module/types/fastify";
+import { Res } from "../types/fastify";
 
 class Response {
   statusCode: number;

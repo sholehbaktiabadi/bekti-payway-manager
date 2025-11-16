@@ -1,6 +1,10 @@
-import { createClient } from "redis";
-import { env } from "./env";
+import IORedis from "ioredis";
 
-export var initRedis = createClient({
-    url: `redis://${env.redisHost}:${env.redisPort}`
-})
+export var MQRedis: IORedis
+
+export async function initIOredis() {
+    const redis = new IORedis({ 
+        maxRetriesPerRequest: null
+    });
+    MQRedis = redis
+}

@@ -1,16 +1,17 @@
 import { CreditInCallback } from "../../dto/callback";
-import { RedisTransactionKey } from "../../helper/redis";
-import { CacheService } from "../cache/cache.service";
+import { BullQueueTransactionPayload } from "../../dto/bull";
+import { BullQueue } from "../bull/bull.queue";
 
 export class CallbackService {
-    private cacheService: CacheService
-    constructor(cacheService: CacheService){
-        this.cacheService = cacheService
+    private bullQueue: BullQueue
+    constructor(bullQueue: BullQueue){
+        this.bullQueue = bullQueue
     }
     async CreditIn(p: CreditInCallback){
         console.log(p.message)
-        const { key, ttl } = RedisTransactionKey(p.message)
-        this.cacheService.set(key,ttl)
+        const queuePayload = new BullQueueTransactionPayload()
+        queuePayload.orderID = p.message
+        this.bullQueue.AddTransactionJob(queuePayload)
         return "ok"
     }
 }
